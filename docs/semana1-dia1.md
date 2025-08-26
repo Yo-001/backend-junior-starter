@@ -30,16 +30,37 @@ Context sendo gerenciado pelo Hibernate/JPA.
 
 ## 4. Validaçao com anotaçoes do Bean Validation
 
-- Forma prática de validar dados de acordo com diferentes
-critérios proporcionado pelo Bean Validation. O Spring gera
+- Forma prática de validar dados de acordo com diferentes critérios proporcionado pelo Bean Validation. O Spring gera
 erros automaticamente se a validaçao falhar.
 
 ## 5. Pageable
 
-- O Pageable evita que todos itens do banco de dados sejam
-carregados de uma só vez, o que tornaria o programa lento
-e com alto consumo de memória. Com o Pageable os itens podem
-ser carregados por páginas, e definir a quantidade de itens
+- O Pageable evita que todos itens do banco de dados sejam carregados de uma só vez, o que tornaria o programa lento
+e com alto consumo de memória. Com o Pageable os itens podem ser carregados por páginas, e definir a quantidade de itens
 por página e a quantidade de páginas.
 
+## 6. @RestControllerAdvice
 
+- Permite criar tratadores globais de exceçao para todos os controllers REST da aplicaçao.
+- Facilita o tratamento de erros ao centralizar o tramento de erros da API, sem precisar repetir try/catch
+em cada controller.
+- Padroniza respostas de erro.
+- Captura exceçoes especificas ou gerias dentro dos controllers.
+
+## 7 . Ciclo de vida uma requisiçao no Spring
+
+- Recebe requisicao do cliente, por exemplo, através de um POST ou PUT, o DispatcherServlet encaminha a requisicao
+para o controller correto através do handlerMapping, e caso houver, passa pelo handlerInterceptor. Ao chegar ao
+controller, ele processa a requisicao, recebe e valida os dados e envia para o service executar a lógica de negocio. 
+O repository acessa o banco de dados, e em seguida o service retorna um DTO ou objeto que representa a resposta.
+O resultado do controller é convertido para JSON ou XML através do HttpMessageConverter, e em seguida é feito o
+tratamento de erros caso tenha ocorrido algum, e se a respostar estiver ok o dispatcherServlet envia a resposta de volta
+ao cliente.
+
+## 8 . DTO vs Entity
+
+- Entity representa a entidade do banco de dados, e reflete como os dados sao armazenados. DTO é o objeto usado para 
+transferir dados entre a API e o cliente, podendo ser um Request DTO ou Response DTO.
+- O uso de DTOs em alternativa a Entity se deve a diversas vantagens: Segurança - evita expor dados sensíveis;
+- Flexibilidade - Permite devolver dados diferentes dos que estao no banco de dados; Evoluçao da API - Se a entidade
+mudar a API nao quebra; Validacao - O DTO pode ter anotaçoes para validar os dados sem poluir a entidade.

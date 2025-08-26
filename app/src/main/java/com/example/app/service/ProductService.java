@@ -19,6 +19,11 @@ public class ProductService {
     public ProductService(ProductRepository repo) {this.repo = repo;}
 
     public ProductResponse create(ProductRequest req) {
+
+        //Checa se já existe produto com esse nome
+        if (repo.existsByName(req.name())){
+            throw new IllegalArgumentException(("A product with this name already exists."));
+        }
         Product p = Product.builder()
                 .name(req.name())
                 .price(req.price())
