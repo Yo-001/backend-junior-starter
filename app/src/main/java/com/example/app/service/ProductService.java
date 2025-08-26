@@ -2,6 +2,7 @@ package com.example.app.service;
 
 import com.example.app.dto.ProductRequest;
 import com.example.app.dto.ProductResponse;
+import com.example.app.exception.ProductNotFoundException;
 import com.example.app.model.Product;
 import com.example.app.repository.ProductRepository;
 import jakarta.transaction.Transactional;
@@ -32,7 +33,7 @@ public class ProductService {
     }
 
     public ProductResponse get(UUID id) {
-        var p = repo.findById(id).orElseThrow(() -> new RuntimeException("Product not found"));
+        var p = repo.findById(id).orElseThrow(() -> new ProductNotFoundException("Product not found."));
         return new ProductResponse(p.getId(), p.getName(), p.getPrice(), p.getCreatedAt());
     }
 
@@ -40,7 +41,7 @@ public class ProductService {
 
         //Buscar produto pelo id
         Product existing = repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Produto nao encontrado"));
+                .orElseThrow(() -> new ProductNotFoundException("Product not found."));
 
         //Atualizar campos (name and price)
         existing.setName(request.name());
@@ -61,8 +62,7 @@ public class ProductService {
     @Transactional
     public void deleteProduct(UUID id){
         Product product = repo.findById(id)
-        .orElseThrow(() -> new RuntimeException("Produto nao encontrado"));
-
-                repo.delete(product);
+        .orElseThrow(() -> new ProductNotFoundException("Product not found"));
+        repo.delete(product);
     }
 }
