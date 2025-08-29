@@ -64,3 +64,9 @@ transferir dados entre a API e o cliente, podendo ser um Request DTO ou Response
 - O uso de DTOs em alternativa a Entity se deve a diversas vantagens: Segurança - evita expor dados sensíveis;
 - Flexibilidade - Permite devolver dados diferentes dos que estao no banco de dados; Evoluçao da API - Se a entidade
 mudar a API nao quebra; Validacao - O DTO pode ter anotaçoes para validar os dados sem poluir a entidade.
+
+## 9. Spring Security
+
+- Filter Chain: Sequencia de filtros para fazer autenticacao e autorizacao de cada requisicao que chega a aplicacao.
+- Autenticaçao vs Autorizaçao: Autenticaçao é identificar o usuario(login e password), já autorizaçao é verificar se o usuario tem acesso a uma determinada sessao da aplicaçao.
+- Usuários em memória: Criaçao de usuários fixos na memória para tester e protótipos, sem precisar de banco de dados.

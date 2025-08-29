@@ -32,6 +32,7 @@ public class ProductService {
         return new ProductResponse(p.getId(), p.getName(), p.getPrice(), p.getCreatedAt());
     }
 
+
     public Page<ProductResponse> list(Pageable pageable){
         return repo.findAll(pageable)
                 .map(p -> new ProductResponse(p.getId(), p.getName(), p.getPrice(), p.getCreatedAt()));
